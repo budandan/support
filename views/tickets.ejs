@@ -1,0 +1,45 @@
+<%- include('partials/header') %> <%- include('partials/navbar') %>
+<div style='padding: 20px'>
+<div class="row">
+    <div class="col-md-12">
+        <a href='/create-ticket' class="btn btn-primary">+ Create New Ticket</a>
+    </div>
+</div>
+<br />
+<br />
+<div class='row'>
+    <div class="col-md-12">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Creator</th>
+                    <th>Priority</th>
+                    <th>Developers</th>
+                    <th>Stakeholders</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% tickets.forEach(ticket => { %>
+                    <tr>
+                        <th><%= ticket.title %></th>
+                        <th><%= ticket.creatorName %></th>
+                        <th><%= ticket.priority %></th>
+                        <th><%= ticket.developers?.map(d => d.name).join(', ') %></th>
+                        <th><%= ticket.stakeholders?.map(s => s.name).join(', ') %></th>
+                        <th><%= ticket.status %></th>
+                        <th>
+                            <a href="/tickets/<%= ticket.id %>" class="btn btn-warning">Details</a>
+                        </th>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</div>
+
+<%- include('partials/footer') %>

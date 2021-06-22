@@ -1,0 +1,69 @@
+<%- include('partials/header') %> <%- include('partials/navbar') %>
+<div class="row">
+    <div class="col-md-4 col-md-offset-1">
+        <h2><%= ticket.title %></h2>
+	</div>
+</div>
+<div class="row">
+    <div class="col-md-offset-1 col-md-7">
+        <div class="panel panel-default">
+            <div class="panel-heading">Description</div>
+            <div class="panel-body"><%= ticket.description %></div>
+        </div>
+    </div>
+    <div class='col-md-3'>
+        <div class="panel panel-default">
+            <div class="panel-heading">People</div>
+            <div class="panel-body">
+                <b>Created By: <%= ticket.creatorName %></b>
+                <br/>
+                <br/>
+                <b>Developers: </b>
+                <ul>
+                <% ticket.developers.forEach(d => { %>
+                    <li><%= d.name %></li>
+                <% }) %>
+                </ul>
+                <br/>
+                <b>Stakeholders: </b>
+                <ul>
+                <% ticket.stakeholders.forEach(s => { %>
+                    <li><%= s.name %></li>
+                <% }) %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-offset-1 col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-heading">Notes</div>
+            <div class='panel-body'>
+                <div style='padding: 16px'>
+                    <form method="POST" action='/tickets/<%= ticket._id %>/notes'>
+                        <input type='text' hidden name='author' value='Daniel'/>
+                        <textarea class='form-control' name='body' placeholder="Write a note..."></textarea>
+                        <br/>
+                        <button type='submit' class='btn btn-success'>Submit</button>
+                    </form>
+                </div>
+                <% ticket.notes.forEach(note => { %>
+                    <hr/>
+                    <div style='border: 2px solid #eee; padding: 16px; border-radius: 5px; margin: 16px' class='row'>
+                        <div class="col-md-12 text-left">
+                            <p><%= note.body %></p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <%= note.author %> at <%= note.createdAt %>
+                            </div>
+                        </div>
+                    </div>
+                    
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('partials/footer') %>

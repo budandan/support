@@ -1,0 +1,39 @@
+<%- include('partials/header') %>
+<div class="row text-center">
+	<div class="col-md-12" style="margin-top: 10%">
+		<img style="width: 250px" src="images/avolta-logo-hz-on-light.png" />
+		<br />
+		<br />
+		<h4>App Tech Support</h4>
+		<br />
+		<br />
+		<button class="btn btn-default" id="login"><img src="images/google-logo.png" style="margin-right: 5px" />Log In With Google</button>
+	</div>
+	<script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
+	<script>
+		function onLoadCallback() {
+			gapi.load('auth2', function () {
+				auth2 = gapi.auth2.init({
+					client_id: '937750339037-non17q1g9hid8e258m8qbp23qah8fjdj.apps.googleusercontent.com',
+					cookiepolicy: 'single_host_origin',
+				});
+				attachSignin(document.getElementById('login'));
+			});
+		}
+
+		function attachSignin(element) {
+			console.log(element.id);
+			auth2.attachClickHandler(
+				element,
+				{},
+				function (googleUser) {
+					console.log(googleUser);
+				},
+				function (error) {
+					alert('Failed to log in.');
+				}
+			);
+		}
+	</script>
+</div>
+<%- include('partials/footer') %>
